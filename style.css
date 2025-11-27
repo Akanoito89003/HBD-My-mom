@@ -1,0 +1,247 @@
+:root {
+    --primary: #ffb7b2;
+    --primary-dark: #ff9e99;
+    --bg-color: #fce4ec;
+    --text-color: #4a4a4a;
+    --heart-color: #ff6b6b;
+    --gold: #ffd700;
+}
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Kanit', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+}
+
+.envelope-wrapper {
+    background: var(--bg-color);
+    position: relative;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: var(--primary-dark);
+    margin: 0 auto;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 3;
+}
+
+.flap {
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 82px solid transparent;
+    border-top: 98px solid var(--primary);
+    transform-origin: top;
+    transition: transform 0.4s ease-in-out 1s, z-index 0.2s ease-in-out 1s;
+    z-index: 5;
+}
+
+.pocket {
+    border-left: 150px solid var(--primary);
+    border-right: 150px solid var(--primary);
+    border-bottom: 90px solid var(--primary-dark);
+    border-top: 110px solid transparent;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.letter {
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    border-radius: 6px;
+    z-index: 2;
+    left: 5%;
+    transition: transform 0.4s ease-in-out, z-index 0.2s ease-in-out;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.letter .text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.hbd-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--heart-color);
+    margin: 0;
+}
+
+.thai-text {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.wishes {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0;
+}
+
+.img-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary);
+    margin: 5px 0;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Open Animation */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+    transition: transform 0.4s ease-in-out, z-index 0.2s ease-in-out;
+}
+
+.envelope.open .letter {
+    transform: translateY(-120px);
+    z-index: 4;
+    transition: transform 0.4s ease-in-out 0.6s, z-index 0.2s ease-in-out 0.6s;
+    height: 280px; /* Expand card height */
+    top: -50px;
+}
+
+/* Hearts Animation */
+.hearts {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+    width: 15px;
+    height: 15px;
+    background: var(--heart-color);
+    transform: rotate(45deg);
+    opacity: 0;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--heart-color);
+    border-radius: 50%;
+}
+
+.heart:before {
+    top: -10px;
+    left: 0;
+}
+
+.heart:after {
+    left: -10px;
+    top: 0;
+}
+
+.envelope.open .heart {
+    animation: float 2s ease-out infinite;
+    opacity: 1;
+}
+
+.envelope.open .a1 { animation-delay: 0.8s; left: 20%; }
+.envelope.open .a2 { animation-delay: 1.2s; left: 50%; }
+.envelope.open .a3 { animation-delay: 1.6s; left: 80%; }
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(45deg) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-100px) rotate(45deg) scale(1.2); opacity: 0; }
+}
+
+.reset {
+    text-align: center;
+    margin-top: 50px;
+}
+
+button {
+    background: white;
+    border: 2px solid var(--primary);
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: var(--primary-dark);
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 0 5px;
+}
+
+button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+#reset {
+    display: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 400px) {
+    .envelope {
+        width: 260px;
+        height: 180px;
+    }
+    
+    .flap {
+        border-left-width: 130px;
+        border-right-width: 130px;
+    }
+    
+    .pocket {
+        border-left-width: 130px;
+        border-right-width: 130px;
+    }
+    
+    .envelope.open .letter {
+        height: 250px;
+    }
+}
